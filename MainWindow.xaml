@@ -1,0 +1,111 @@
+﻿<Window x:Class="FVSelectScenes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FVSelectScenes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <DockPanel>
+        <Grid DockPanel.Dock="Right" Width="400">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" FontWeight="ExtraBold" FontSize="14">Segment</Label>
+            <WrapPanel Grid.Row="0" Grid.Column="1">
+                <Label FontSize="14">Num:</Label>
+                <TextBox Name="x_segmentNumber" GotFocus="Pause_Event" LostFocus="x_segmentNumber_LostFocus"
+                         KeyDown="TextBox_UpdateOnEnterKey" FontSize="14" MinWidth="30" VerticalAlignment="Center">0</TextBox>
+                <Label FontSize="14">Of</Label>
+                <Label Name="x_segmentTotal" FontSize="14">0</Label>
+                <Label FontSize="14">Duration:</Label>
+                <Label Name="x_duration" FontSize="14">0</Label>
+            </WrapPanel>
+            <WrapPanel Grid.Row="1" Grid.Column="1">
+                <Label>Start:</Label>
+                <Label Name="x_start"></Label>
+                <Label>End:</Label>
+                <Label Name="x_end"></Label>
+            </WrapPanel>
+            <Label Grid.Row="2">Disposition</Label>
+            <WrapPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+                <RadioButton Name="x_dispKeep" GroupName="Disp" Margin="0,0,10,0" Checked="x_disposition_Changed">Keep</RadioButton>
+                <RadioButton Name="x_dispAdd" GroupName="Disp" Margin="0,0,10,0" Checked="x_disposition_Changed">Add to Previous</RadioButton>
+                <RadioButton Name="x_dispDelete" GroupName="Disp" Margin="0,0,10,0" Checked="x_disposition_Changed">Delete</RadioButton>
+            </WrapPanel>
+            <Label Grid.Row="3">Date</Label>
+            <DatePicker Name="x_date" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></DatePicker>
+            <Label Grid.Row="4">Subject</Label>
+            <TextBox Name="x_subject" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"></TextBox>
+            <Label Grid.Row="5">Title</Label>
+            <TextBox Name="x_title" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"></TextBox>
+            <WrapPanel Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <Button Click="Prev_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x23EE; Prev</Button>
+                <Button Click="Replay_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x1F501; Replay Break</Button>
+                <Button Click="Next_Click" Margin="5,0,5,0" Padding="5,2,5,2">Next &#x23ED;</Button>
+            </WrapPanel>
+            <WrapPanel Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,4">
+                <Button Click="PlaySegment_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x23F5; Play Segment</Button>
+                <Button Click="ReplayLonger_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x1F501; Replay Longer Break</Button>
+            </WrapPanel>
+            <Separator Grid.Row="8" Grid.ColumnSpan="2"/>
+            <Label Grid.Row="9" FontWeight="ExtraBold" FontSize="14">Scene</Label>
+            <WrapPanel Grid.Row="9" Grid.Column="2">
+                <Label FontSize="14">Segments</Label>
+                <Label Name="x_sceneFirstSegment" FontSize="14">0</Label>
+                <Label FontSize="14">To</Label>
+                <Label Name="x_sceneLastSegment" FontSize="14">0</Label>
+                <Label FontSize="14">Duration:</Label>
+                <Label Name="x_sceneDuration" FontSize="14">0</Label>
+            </WrapPanel>
+            <WrapPanel Grid.Row="10" Grid.Column="1">
+                <Label>Start:</Label>
+                <Label Name="x_sceneStart"></Label>
+                <Label>End:</Label>
+                <Label Name="x_sceneEnd"></Label>
+            </WrapPanel>
+            <WrapPanel Grid.Row="11" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                <Button Click="PrevScene_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x23EE; Prev Scene</Button>
+                <Button Click="NextScene_Click" Margin="5,0,5,0" Padding="5,2,5,2">Next Scene &#x23ED;</Button>
+            </WrapPanel>
+            <WrapPanel Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,4">
+                <Button Click="PlayScene_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x23F5; Play Scene</Button>
+            </WrapPanel>
+        </Grid>
+        <StackPanel>
+            <WrapPanel>
+                <Label Name="x_filename" FontSize="20"></Label>
+                <Label FontSize="20">Duration: </Label>
+                <Label Name="x_fileDuration" FontSize="20"></Label>
+            </WrapPanel>
+            <MediaElement Name="x_player" Volume="0.05" LoadedBehavior="Manual" MinHeight="400"
+                MediaEnded="x_player_MediaEnded" MediaOpened="x_player_MediaOpened"></MediaElement>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4">
+                <Button Name="x_play" Click="x_play_Click" FontSize="20" MinWidth="20" Margin="4">&#x23F5; Play</Button>
+                <Button Click="Pause_Event" FontSize="20" MinWidth="20" Margin="4">&#x23F8; Pause</Button>
+                <TextBox Name="x_position" GotFocus="Pause_Event" LostFocus="x_position_LostFocus"
+                         KeyDown="TextBox_UpdateOnEnterKey" FontSize="20" MinWidth="30" VerticalAlignment="Center"></TextBox>
+                <Label Margin="5,0,0,0" VerticalAlignment="Center" FontSize="20">Segment:</Label>
+                <Label Name="x_playingSegment" VerticalAlignment="Center" FontSize="20" MinWidth="20">1</Label>
+            </StackPanel>
+        </StackPanel>
+        
+    </DockPanel>
+</Window>
