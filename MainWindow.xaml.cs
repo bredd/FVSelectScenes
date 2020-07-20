@@ -576,5 +576,24 @@ namespace FVSelectScenes
             x_fileDuration.Content = FormatTimespan(m_endOfRecording);
         }
 
+        private void CopyPrev_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_currentSegment == 0) return;
+            int seg;
+            for (seg = m_currentSegment-1; seg > 0; --seg)
+            {
+                if (m_segments[seg].Disposition == SegmentDisposition.Keep) break;
+            }
+            if (m_segments[seg].Disposition != SegmentDisposition.Keep) return;
+
+            if (m_segments[seg].Date > DateTime.MinValue)
+            {
+                x_date.SelectedDate = m_segments[seg].Date;
+            }
+            if (!string.IsNullOrEmpty(m_segments[seg].Subject))
+            {
+                x_subject.Text = m_segments[seg].Subject;
+            }
+        }
     }
 }

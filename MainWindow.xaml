@@ -26,6 +26,8 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" FontWeight="ExtraBold" FontSize="14">Segment</Label>
@@ -51,7 +53,10 @@
                 <RadioButton Name="x_dispDelete" GroupName="Disp" Margin="0,0,10,0" Checked="x_disposition_Changed">Delete</RadioButton>
             </WrapPanel>
             <Label Grid.Row="3">Date</Label>
-            <DatePicker Name="x_date" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"></DatePicker>
+            <WrapPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
+                <DatePicker Name="x_date" VerticalAlignment="Center"></DatePicker>
+                <Button Margin="10,0,0,0" Click="CopyPrev_Click">Copy Prev</Button>
+            </WrapPanel>
             <Label Grid.Row="4">Subject</Label>
             <TextBox Name="x_subject" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"></TextBox>
             <Label Grid.Row="5">Title</Label>
@@ -88,6 +93,10 @@
             <WrapPanel Grid.Row="12" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,4">
                 <Button Click="PlayScene_Click" Margin="5,0,5,0" Padding="5,2,5,2">&#x23F5; Play Scene</Button>
             </WrapPanel>
+            <Separator Grid.Row="13" Grid.ColumnSpan="2"/>
+            <Label Grid.Row="14" Grid.Column="0">Volume</Label>
+            <Slider Name="x_Volume" Grid.Row="14" Grid.Column="1"
+                    Value="{Binding Volume, Mode=TwoWay, ElementName=x_player}" Minimum="0" Maximum="1"/>
         </Grid>
         <StackPanel>
             <WrapPanel>
@@ -95,7 +104,7 @@
                 <Label FontSize="20">Duration: </Label>
                 <Label Name="x_fileDuration" FontSize="20"></Label>
             </WrapPanel>
-            <MediaElement Name="x_player" Volume="0.05" LoadedBehavior="Manual" MinHeight="400"
+            <MediaElement Name="x_player" LoadedBehavior="Manual" MinHeight="400"
                 MediaEnded="x_player_MediaEnded" MediaOpened="x_player_MediaOpened"></MediaElement>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="4">
                 <Button Name="x_play" Click="x_play_Click" FontSize="20" MinWidth="20" Margin="4">&#x23F5; Play</Button>
