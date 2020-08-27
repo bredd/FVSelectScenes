@@ -61,7 +61,7 @@ namespace FVSelectScenes
         {
             var dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".mp4";
-            dlg.Filter = "Video files (.mp4)|*.mp4";
+            dlg.Filter = "Video Files (.mp4 .avi)|*.mp4;*.avi";
             if (System.IO.Directory.Exists(c_defaultDirectory))
             {
                 dlg.InitialDirectory = c_defaultDirectory;
